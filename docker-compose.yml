@@ -35,7 +35,7 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - ./loki-config.yml:/etc/loki/local-config.yaml
+      - ./config/loki/loki-config.yml:/etc/loki/local-config.yaml
       - loki-data:/tmp/loki
     command: -config.file=/etc/loki/local-config.yaml
     networks:
@@ -46,7 +46,7 @@ services:
   promtail:
     image: grafana/promtail:2.9.3
     volumes:
-      - ./promtail-config.yml:/etc/promtail/config.yml
+      - ./config/promtail/promtail-config.yml:/etc/promtail/config.yml
       - app-logs:/var/log/app
       - /var/run/docker.sock:/var/run/docker.sock
     command: -config.file=/etc/promtail/config.yml
@@ -68,7 +68,9 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
     volumes:
       - grafana-data:/var/lib/grafana
-      - ./grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./config/grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./config/grafana/provisioning/dashboards/dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
+      - ./config/grafana/dashboards/notes-app-dashboard.json:/var/lib/grafana/dashboards/notes-app-dashboard.json
     networks:
       - loki-network
     depends_on:

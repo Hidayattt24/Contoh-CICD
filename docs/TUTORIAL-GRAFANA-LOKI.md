@@ -165,9 +165,42 @@ http://localhost:3001
 2. Pastikan **Loki** sudah terdaftar dan berwarna hijau (connected)
 3. URL Loki: `http://loki:3100`
 
-### 3. Explore Logs
+### 3. Lihat Logs - Ada 3 Cara
 
-#### Cara 1: Menggunakan Explore
+#### Cara 1: Dashboard (PALING MUDAH!) 🌟
+
+Dashboard sudah otomatis ter-provision, tidak perlu import manual!
+
+**Langkah-langkah:**
+1. Login ke Grafana (http://localhost:3001, admin/admin)
+2. Klik icon **Dashboards** (☷) di sidebar kiri
+3. Pilih **"Notes App - Logs Dashboard"** dari list
+4. Dashboard terbuka dengan 6 panels lengkap!
+
+**Panels yang tersedia:**
+- **Log Volume Over Time** - Grafik logs per level real-time
+- **Recent Logs** - Semua logs streaming
+- **Logs Distribution** - Pie chart by level (last 5m)
+- **Error Logs Only** - Filter khusus error
+- **HTTP Request Logs** - All HTTP requests
+- **CRUD Operations** - Create/Update/Delete logs
+
+**Tips Dashboard:**
+- Auto-refresh setiap **5 detik**
+- Time range default: **Last 1 hour**
+- Ubah time range di pojok kanan atas
+- Klik panel untuk zoom/detail
+- Klik "Live" untuk streaming real-time
+
+#### Cara 2: Button View Logs di Aplikasi
+
+1. Buka aplikasi: http://localhost:3000
+2. Klik button **"📊 View Logs"** di header
+3. Otomatis buka Grafana Explore dengan query ready!
+
+#### Cara 3: Manual Explore (Untuk Query Custom)
+
+Jika ingin query manual dengan LogQL:
 
 1. Klik **Explore (🧭)** di sidebar
 2. Pilih **Loki** sebagai data source
@@ -197,19 +230,6 @@ http://localhost:3001
 ```logql
 sum(count_over_time({service="notes-app"}[5m])) by (level)
 ```
-
-#### Cara 2: Import Dashboard
-
-1. Klik **Dashboards (+)** → **Import**
-2. Upload file `grafana-dashboard.json`
-3. Pilih **Loki** sebagai data source
-4. Klik **Import**
-
-Dashboard akan menampilkan:
-- **Log Volume Over Time**: Grafik jumlah log per waktu
-- **Recent Logs**: Log terbaru secara real-time
-- **Logs by Level**: Pie chart distribusi log level
-- **Error Logs**: Khusus menampilkan error logs
 
 ## LogQL Queries untuk Praktikum
 
